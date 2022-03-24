@@ -26,6 +26,7 @@ namespace congestion.calculator
 
         public int GetTax(VehicleType vehicle, DateTime[] dates)
         {
+            Array.Sort(dates);
             DateTime intervalStart = dates[0];
             int totalFee = 0;
             foreach (DateTime date in dates)
