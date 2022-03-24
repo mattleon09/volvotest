@@ -1,4 +1,6 @@
 
+using congestion.calculator;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables();
@@ -11,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGenNewtonsoftSupport();
+builder.Services.AddTransient<ICongestionTaxCalculator, CongestionTaxCalculator>();
 
 var app = builder.Build();
 

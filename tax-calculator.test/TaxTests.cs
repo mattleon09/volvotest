@@ -1,4 +1,5 @@
-﻿using congestion.calculator.Enums;
+﻿using congestion.calculator;
+using congestion.calculator.Enums;
 using SharpTestsEx;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace tax_calculator.test
 
     public class TaxTests
     {
-        public CongestionTaxCalculator _testclass;
+        public ICongestionTaxCalculator _testclass;
         public List<DateTime> _timeSlots = new List<DateTime>();
 
         public TaxTests()
@@ -48,7 +49,14 @@ namespace tax_calculator.test
             taxFee.Should().Be.EqualTo(60);
         }
 
+        [Fact]
+        public void TestTractor()
+        {
+            var taxFee = _testclass.GetTax(VehicleType.Tractor, _timeSlots.ToArray());
 
+            taxFee.Should().Not.Be(0);
+            taxFee.Should().Be.EqualTo(60);
+        }
 
 
         [Theory]
@@ -57,7 +65,6 @@ namespace tax_calculator.test
         [InlineData(VehicleType.Emergency)]
         [InlineData(VehicleType.Foreign)]
         [InlineData(VehicleType.Military)]
-        [InlineData(VehicleType.Tractor)]
         [InlineData(VehicleType.Bus)]
         public void TestTollFreeVehicle(VehicleType type)
         {
